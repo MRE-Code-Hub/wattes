@@ -1,0 +1,22 @@
+absorbsrc.o : absorbsrc.F90 nodeforce.o parallel.o calcglobals.o turbtypes.o 
+bem.o : bem.F90 turbtypes.o 
+bladepitch.o : bladepitch.F90 turbtypes.o 
+calcglobals.o : calcglobals.F90 chordlift.o interpnodes.o mathsmisc.o parallel.o turbtypes.o 
+checkpoint.o : checkpoint.F90 parallel.o turbtypes.o 
+chordlift.o : chordlift.F90 turbtypes.o 
+gauss.o : gauss.F90 
+init.o : init.F90 parallel.o interpnodes.o chordlift.o bem.o turbtypes.o 
+interfaceturb.o : interfaceturb.F90 main.o 
+interpnodes.o : interpnodes.F90 turbtypes.o 
+load.o : load.F90 chordlift.o parallel.o turbtypes.o 
+main.o : main.F90 checkpoint.o transform.o output.o parallel.o memory.o absorbsrc.o bladepitch.o volume.o init.o load.o turbtypes.o 
+mathsmisc.o : mathsmisc.F90 turbtypes.o 
+memory.o : memory.F90 turbtypes.o 
+nodeforce.o : nodeforce.F90 mathsmisc.o parallel.o interpnodes.o chordlift.o turbulence.o turbtypes.o 
+output.o : output.F90 volume.o parallel.o turbtypes.o 
+parallel.o : parallel.F90 memory.o turbtypes.o 
+testprog.o : testprog.F90 
+transform.o : transform.F90 mathsmisc.o turbtypes.o 
+turbtypes.o : turbtypes.F90 
+turbulence.o : turbulence.F90 mathsmisc.o turbtypes.o 
+volume.o : volume.F90 mathsmisc.o parallel.o memory.o turbtypes.o 
