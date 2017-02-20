@@ -14,15 +14,24 @@ Before we begin, the software requirements for WATTES are:
 - An MPI distribution (OpenMPI or MPICH) for your chosen Fortran compiler
 - A CFD package with source, to link the WATTES library to.
 
+(Optional, development)
+- makedepf90 for generating Fortran file dependencies
+
 That's it. There may be additional dependencies for your CFD package; please 
 refer to its documentation.
 
 3. COMPILING
 
 First inspect the Makefile. Of particular note are the following variables:
-- prefix . (WATTES will be installed in prefix/lib)
-- FC (Fortran compiler, should be 'mpif90' or 'ftn' on Cray systems)
-- FFLAGS (default are for GCC/GFortran, although examples also shown for Intel)
+- 'prefix'.  WATTES will be installed in prefix/lib
+- 'FC'. Fortran compiler, should be 'mpif90' or 'ftn' on Cray systems.
+- 'FFLAGS'. Defaults are for GCC/GFortran, although examples also shown for
+   Intel.
 
 Once these are correct for your system, type 'make'. If all goes well, the 
 library file(s) should appear in lib/ .
+
+(Optional, development)
+
+If you have added any files during development, please run 'make depends'
+before compiling (this will require makedepf90).

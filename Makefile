@@ -117,9 +117,11 @@ staticinstall: $(staticlib) interfaceturb.o
 	@echo "Copying $(staticlib) to $(prefix)/lib"
 	@cp -f $(staticlib) $(prefix)/lib
 
-directories: $(moddir)
+directories: $(moddir) $(libdir)
 $(moddir):
 	@mkdir -p $(moddir)
+$(libdir):
+	@mkdir -p $(libdir)
 
 
 test: $(sharedlib) $(testobjs) 
@@ -149,3 +151,11 @@ clean:
 
 
 .PHONY: directories
+
+depends:
+	@echo "Making dependencies (requires makedepf90) ..."
+	@makedepf90 $(inc) *.F90 > .make-depends
+
+
+# Include dependencies
+include .make-depends
