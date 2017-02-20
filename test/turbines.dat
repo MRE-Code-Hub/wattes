@@ -1,0 +1,32 @@
+turbine
+  id = an
+  type = line
+  coords = 100 150 65.0
+  orientation = 270
+  orientation time = -1
+  upward tilt = 6.0
+  radius = 46.5
+  hub fraction = 0.1
+  length = 15
+  blade sense = anticlockwise
+  blade pitch = 90
+  blade relax time = 5.0
+  blades = 3
+  tip speed ratio = 6.3
+  mass density = 250
+  bem filename = b45-blade.dat.mk14f
+  liftdrag filename = javafoil-63415-b.dat
+  cut in u0 = 4.0
+  cut out u0 = 25.0
+  max power u0 = 14
+  max power = 2300000
+  turbulence opt = 0.20
+  velocity relax time = 1.0
+end turbine
+turbine
+  clone
+  id = cl
+  type = line
+  coords = 100 350 65.0
+  blade sense = clockwise
+end turbine
