@@ -25,6 +25,9 @@ following:
 * Creech, Angus; Fruh, Wolf-Gerrit; Maguire, A. Eoghan. 
 Simulations of an Offshore Wind Farm Using Large-Eddy Simulation and a Torque-Controlled Actuator Disc Model. Surveys in geophysics, 2015.
 
+* Creech, Angus; Borthwick, Alistair; Ingram, David.
+Effects of Support Structures in an LES Actuator Line Model of a Tidal Turbine with Contra-rotating Rotors. Energies, 10:726, 2017.
+
 
 Please direct all correspondance to: 
        Dr. Angus Creech <angus_creech@hotmail.com>
