@@ -21,9 +21,9 @@ Citations
 ---------
 If you wish to cite the model in your own publications, please use the 
 following:
-Creech, Angus; Fruh, Wolf-Gerrit; Maguire, A. Eoghan. Simulations of an 
-Offshore Wind Farm Using Large-Eddy Simulation and a Torque-Controlled Actuator 
-Disc Model. Surveys in geophysics, 2015.
+
+* Creech, Angus; Fruh, Wolf-Gerrit; Maguire, A. Eoghan. 
+Simulations of an Offshore Wind Farm Using Large-Eddy Simulation and a Torque-Controlled Actuator Disc Model. Surveys in geophysics, 2015.
 
 
 Please direct all correspondance to: 
