@@ -1,34 +1,3 @@
-# WATTES - Wind And Tidal Turbine Embedded Simulator
-# An actuator disc/line turbine model for coupling with CFD software
-#
-# Copyright (C) 2017 Heriot Watt University and the University of Edinburgh.
-#
-# Please see the AUTHORS file in the main source directory for a full list
-# of copyright holders.
-#
-#	  Dr. A Creech
-#	  Institute of Energy Systems
-#	  School of Engineering
-#	  University of Edinburgh
-#	  
-#	  angus_creech@hotmail.com
-# 
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Lesser General Public
-# License as published by the Free Software Foundation; either
-# version 2.1 of the License, or (at your option) any later version.
-# 
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License for more details.
-# 
-# You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-# -----------------------------------------------------------------------------
-
-# This builds the turbine library and associated test program
 
 SHELL=/bin/sh
 
@@ -54,8 +23,8 @@ libobjs=\
 	output.o \
 	main.o
 
-testprog=testprog
-testobjs=testprog.o interfaceturb.o 
+testobjs=Ctestprog.o interfaceturb.o 
+testcxx=testcxx
 
 moddir=modules
 
@@ -68,15 +37,16 @@ debugflags=
 
 # Install library to $(prefix)/lib
 prefix=$(HOME)/local
+linkflags=-lgfortran
 
-
-# define your Fortran compiler
-
-# Need to have Fortran-enabled MPI installed
+CXX=mpicxx
 FC=mpif90
+#CC=...
+#CFLAGS=...
 # FC=ftn
 
 # Gfortran
+CXXFLAGS=$(inc) $(debugflags) -O2 
 FFLAGS=$(inc) $(debugflags) -fPIC -O2 -fbacktrace -J$(moddir) -fdefault-real-8
 
 # FFLAGS=$(inc) $(debugflags) -fPIC -O2 -J$(moddir) -fdefault-real-8
@@ -123,12 +93,19 @@ $(moddir):
 $(libdir):
 	@mkdir -p $(libdir)
 
+#$(EXEC): $(testobjs)
+#	$(CXX) $(linkflags) -o $(XEC) $(testobjs)
+#testprog: $(staticlib) $(testobjs) 
+#	@echo "Building test program"
+#	$(FC) $(FFLAGS) -o $(Ctestprog) $(testobjs) -Llib -lwattes
 
-test: $(sharedlib) $(testobjs) 
-	$(FC) $(FFLAGS) -o $(testprog) $(testobjs) -Llib -lturb
 
-modtest:  $(libobjs) $(testobjs)
-	$(FC) $(FFLAGS) -o $(testprog) $(testobjs) $(libobjs)
+$(testcxx): $(staticlib) $(testobjs) 
+	@echo "Building c++ test program"
+	$(CXX) $(CXXFLAGS) -o $(testcxx) $(testobjs) \
+	-Llib -lmpi_mpifh -lwattes -lgfortran \
+	-lstdc++ -lquadmath -lm
+
 
 gitclean: svnclean
 svnclean: clean
@@ -136,7 +113,7 @@ svnclean: clean
 
 clean:
 	rm -f *.o *.mod $(moddir)/*.mod *~ \#*\# */*~
-	rm -f $(testprog) $(sharedlib) $(staticlib)
+	rm -f $(testcxx) $(sharedlib) $(staticlib) $(testobjs)
 	rm -f test/output test/output*.log test/turbines-output.csv
 
 
@@ -144,11 +121,13 @@ clean:
 
 .f90.o:
 	@echo "  FC $<"
-	@$(FC) -c (FFLAGS) $<
+	@$(FC) (FFLAGS) -c $<
 .F90.o:
 	@echo "  FC $<"
-	@$(FC) -c  $(FFLAGS) $<
-
+	@$(FC) $(FFLAGS) -c $<
+.cpp.o:
+	@echo "  CXX $<"
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 .PHONY: directories
 
