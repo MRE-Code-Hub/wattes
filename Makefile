@@ -63,8 +63,7 @@ inc=-I./include
 
 debugflags=
 
-#linkflags=$(debugflags) -shared 
-# linkflags=-g $(debugflags)
+linkflags=$(debugflags) -shared 
 
 # Install library to $(prefix)/lib
 prefix=$(HOME)/local
@@ -91,10 +90,9 @@ FFLAGS=$(inc) $(debugflags) -fPIC -O2 -fbacktrace -J$(moddir) -fdefault-real-8
 # Ifort
 # FFLAGS=-O3 $(inc) -g -module $(moddir) -vec-report0 -traceback -fPIC
 
-#all: directories $(sharedlib) # $(staticlib)
-all: directories $(staticlib)
+all: directories $(sharedlib)
+# all: directories $(staticlib)
 $(sharedlib): $(libobjs)
-
 	$(CC) $(linkflags) -o $(sharedlib) $(libobjs)
 
 $(staticlib): $(libobjs)
