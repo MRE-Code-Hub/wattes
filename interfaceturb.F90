@@ -60,11 +60,15 @@ subroutine turbineFarmFluidityInterface(numXNodes, numUNodes, &
   integer i
   logical updateTurbine, outputTurbineData
 
-  
-  ! print*, "turbineFarmFluidityInterface()"
-  ! print*, "xnonod:", numXNodes, "  nonods:", numUNodes
-  ! print*, "iteration, nonlin:", currentNonLinearIteration, numIterations
 
+  
+  print*, "turbineFarmFluidityInterface()"
+  print*, "xnonod:", numXNodes, "  nonods:", numUNodes
+  print*, "iteration, nonlin:", currentNonLinearIteration, numIterations
+
+  do i=1, numUNodes
+!     write(*,"(1I5, 3e5.3)"),i, xNode(i), yNode(i), zNode(i)
+  end do
 
 
   ! WARNING: DIRTY HACK AHEAD (THIS IS OUTDATED)
@@ -140,3 +144,86 @@ subroutine turbineFarmFluidityInterface(numXNodes, numUNodes, &
   ! print*,"End turbineFarmFluidityInterface"
 
 end subroutine turbineFarmFluidityInterface
+
+
+!------------------------------------------------------------------------------
+
+
+! Turbine Farm OpenFOAM Interface
+!
+! Unlike Fluidity, we can't pass bladeDistrib currently. C++ confuses the
+! Fortran interface
+
+
+subroutine turbineFarmOpenFOAMInterface(numXNodes, numUNodes, &
+     xNode, yNode, zNode, &
+     uNode, vNode, wNode, &
+     referenceDensity, &
+     xSource, ySource, zSource, &
+     t, dt, &
+     currentNonLinearIteration, numIterations, &
+     remesh )
+
+  use main
+  implicit none
+
+  logical remesh
+
+  integer :: numXNodes, numUNodes, &
+       currentNonLinearIteration, numIterations
+  real, dimension(numUNodes), intent(in) :: xNode, yNode, zNode
+  real, dimension(numUNodes), intent(in) :: uNode, vNode, wNode
+
+  ! Currently we only deal with prescribed, constant density fluids.
+  ! For Boussinesq, we'll need the density field instead.
+  real :: referenceDensity
+  real, dimension(numUNodes) :: xSource, ySource, zSource
+  real t, dt
+
+  integer i
+  logical updateTurbine, outputTurbineData
+
+  !currentNonLinearIteration = 1
+  !numIterations = 2
+  print*, ""
+  print*, ""
+  print*, "turbineFarmOpenFOAMInterface()"
+  print*, "DEBUG EDITION"
+  print*, "xnonod:", numXNodes, "  nonods:", numUNodes
+  print*, "iteration, nonlin:", currentNonLinearIteration, numIterations
+
+  if ( currentNonLinearIteration == 1 ) then
+     updateTurbine = .true.
+     outputTurbineData = .true.
+  else
+     updateTurbine = .false.
+     outputTurbineData = .false.
+  end if
+
+  
+
+  print*, "X"
+  do i=1, numXNodes
+     print 755, i, xNode(i), yNode(i), zNode(i)
+755  format(I5, 3(F8.3, " "))
+  end do
+
+  print*, ""
+  print*, "U"
+  do i=1, numXNodes
+     print 756, i, uNode(i), vNode(i), wNode(i)
+756  format(I5, 3(F8.3, " "))
+  end do
+
+  call turbineFarmSolver( numUNodes, &
+       xNode, yNode, zNode, &
+       uNode, vNode, wNode, &
+       referenceDensity,  &
+       xSource, ySource, zSource, &
+       t, dt, &
+       updateTurbine, outputTurbineData )
+
+  print*,"End turbineFarmOpenFOAMInterface"
+  print*, ""
+
+end subroutine turbineFarmOpenFOAMInterface

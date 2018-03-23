@@ -255,7 +255,12 @@ contains
        do j=1, turb%numberNodes
           node = turb%nodes(j)
           rnode = sqrt( node%y**2. + node%z**2. )
+          if(abs(node%z) < verySmall .or. abs(node%y)<verySmall) then
+             rOmega=0
+          else
           rOmega = rnode * 0.5 * (-node%v/node%z + node%w/node%y)
+          end if
+
           rOmegaSq = rOmega**2.
 
           if( abs(r-rnode) < verySmall ) then

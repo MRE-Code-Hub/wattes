@@ -155,9 +155,17 @@ contains
   ! --------------------------------------------------------------------------
 
   subroutine getNumberOfProcessors( returnNum )
-    integer iError, returnNum
+    integer iError, returnNum, mpiInit
 
-    call mpi_comm_size( MPI_COMM_WORLD, returnNum, iError )
+    ! If MPI hasn't been initialised, we're running in serial mode.
+    call MPI_Initialized(mpiInit, iError)
+
+    if(mpiInit==0) then
+      returnNum=1
+    else
+      call mpi_comm_size( MPI_COMM_WORLD, returnNum, iError )
+    end if
+    
   end subroutine getNumberOfProcessors
 
 

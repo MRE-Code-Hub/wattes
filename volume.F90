@@ -70,7 +70,7 @@ contains
     turbines(:)%numberNativeNodes = 0
 
 
-    ! print*, "in collectTurbineNodes()"
+    print*, "in collectTurbineNodes()"
 
     ! For each point...
     ! (Makes sense to do it this way: the theory being, no point can be inside

@@ -138,9 +138,8 @@ contains
              ySource(ix) = sourceScale * node%source%y
              zSource(ix) = sourceScale * node%source%z
              
-             if(turbines(t)%haveBladeDistrib) then
+             if(present(bladeDistrib) .and. turbines(t)%haveBladeDistrib) then
                 bladeDistrib(ix) = node%bladeDistrib
-                ! print*,"bladeDistrib(",ix,"):", bladeDistrib(ix)
              end if
              
           end if

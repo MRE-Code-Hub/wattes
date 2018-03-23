@@ -481,8 +481,13 @@ contains
        turbines(i)%hubRadius = hubRadiusFraction * turbines(i)%radius
        turbines(i)%windRampTime=0.
 
-       turbines(i)%orientOmegaDotMax &
-            = 2.*pi /( orientFractionTime*turbines(i)%orientRevTime**2. )
+
+       if( abs(orientFractionTime*turbines(i)%orientRevTime**2.) < verySmall) then
+          turbines(i)%orientOmegaDotMax = 0
+       else
+          turbines(i)%orientOmegaDotMax = 2.*pi /( orientFractionTime*turbines(i)%orientRevTime**2. )
+       end if
+
 
        ! Geometry calculations. If we set the filename to 'auto', this will
        ! automagically calculate the values for twist and chord width in
