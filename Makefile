@@ -52,7 +52,8 @@ libobjs=\
 	absorbsrc.o \
 	transform.o \
 	output.o \
-	main.o
+	main.o \
+	interfaceturb.o
 
 testprog=testprog
 testobjs=testprog.o interfaceturb.o 
@@ -61,11 +62,12 @@ moddir=modules
 
 inc=-I./include
 
-debugflags=
+debugflags=#-ggdb -fbacktrace
 
 linkflags=$(debugflags) -shared 
 
 # Install library to $(prefix)/lib
+# prefix=$(CONTRIB_DIR)/base/1.0
 prefix=$(HOME)/local
 
 
