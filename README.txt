@@ -1,5 +1,8 @@
-Wind And Tidal Turbine Embedded Simulator (WATTES)
-==================================================
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+	 README for Wind And Tidal Turbine Embedded Simulator (WATTES)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 This directory contains the complete source code for WATTES, as well as example
 configurations for use. 
